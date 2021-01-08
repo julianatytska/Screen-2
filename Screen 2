@@ -1,0 +1,70 @@
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+import turtle
+from random import choice, randint
+window1 = turtle.Screen()
+window1.bgcolor("black")
+window1.setup(width=1.0, height=1.0)
+
+
+border = turtle.Turtle()
+border.speed(0)
+border.color("green")
+border.begin_fill()
+border.goto(-500, 200)
+border.goto(500, 200)
+border.goto(500, -200)
+border.goto(-500, -200)
+border.goto(-500, 200)
+border.end_fill()
+border.hideturtle()
+
+border.goto(0,300)
+border.color('white')
+border.setheading(270)
+for i in range(25):
+    if i % 2 == 0:
+        border.forward(24)
+    else:
+        border.up()
+        border.forward(24)
+        border.down()
+border.hideturtle()
+
+from random import choice, randint
+ball = turtle.Turtle()
+ball.shape('circle')
+ball.speed(0)
+ball.color('red')
+ball.dx = 3
+ball.dy = 3
+ball.penup()
+
+while True:
+ window1.update()
+ ball.setx(ball.xcor() + ball.dx)
+ ball.sety(ball.ycor() + ball.dy)
+
+ if ball.ycor() >= 290:
+  ball.dy = -ball.dy
+
+ if ball.ycor() >= -290:
+  ball.dy = -ball.dy
+
+ if ball.xcor() >= 490:
+  s.connect(("192.168.1.6", 10080))
+  ball.goto(-490, randint(-150, 150))
+  ball.dx = choice([-4,-3,-2,2,3,4])
+  ball.dy = choice([-4,-3,-2,2,3,4])
+
+ if ball.xcor() <= -490:
+  s.connect(("192.168.1.7", 10080))
+
+  ball.goto(490, randint(-150,150))
+  ball.dx = choice([-4,-3,-2,2,3,4])
+  ball.dy = choice([-4,-3,-2,2,3,4])
+
+
+window1.mainloop()
+
